@@ -1,0 +1,48 @@
+-- Check for consistncy in film table and all columns with differernt data types.
+SELECT rating
+FROM film
+GROUP BY rating
+
+SELECT rental_duration
+FROM film
+GROUP BY rental_duration
+ORDER BY rental_duration
+
+SELECT language_id
+FROM film
+GROUP BY language_id
+
+SELECT rental_rate
+FROM film
+GROUP BY rental_rate
+
+SELECT rental_duration
+FROM film
+GROUP BY rental_duration
+ORDER BY rental_duration
+
+--Summarize data by calculating descriptive statistics for film and customer table
+--FILM TABLE
+SELECT  MIN(rental_duration), MAX(rental_duration), AVG(rental_duration),
+        COUNT(rental_duration) AS count_rent_duration_values, 
+        MIN(rental_rate_, MAX(rental_rate), AVG(rental_rate), 
+        COUNT(rental_rate) AS count_rent_values.
+        MIN(replacement_cost), MAX(replacement_cost), AVG(replacement_cost), 
+        COUNT(replacement_cost) AS cost_replacement_cost_values,
+        COUNT(*) AS count_rows 
+FROM film;
+--CUSTOMER TABLE from only two stores
+SELECT  store_id, 
+        mode()WITHIN GROUP (ORDER BY first_name), 
+        CASE 
+        WHEN store_id = 1 THEN 'Seattle, Washington' 
+        WHEN store_id = 2 THEN 'St.Petersburg, Florida'
+        END AS city_state, 
+        active, COUNT(active) AS nbr_of_customers, 
+        CASE 
+        WHEN active = 1 THEN 'active' 
+        WHEN active = 0 THEN 'inactive' 
+        END AS membership
+FROM customer 
+GROUP BY store_id, active
+ORDER BY store_id; 
